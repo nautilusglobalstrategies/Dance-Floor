@@ -1,114 +1,321 @@
-/* ==========================================
+/* ==================================================
    Indiana Dance Floor Rentals
-   script.js
-========================================== */
+   Complete script.js replacement
+================================================== */
 
-const header = document.querySelector("header");
+document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector(".site-header");
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector(".nav-links");
+    const navigationLinks = document.querySelectorAll(".nav-links a");
+    const yearElement = document.getElementById("year");
+    const quoteForm = document.getElementById("quoteForm");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = lightbox
+        ? lightbox.querySelector("img")
+        : null;
+    const lightboxClose = lightbox
+        ? lightbox.querySelector(".lightbox-close")
+        : null;
 
-window.addEventListener("scroll", () => {
+    /* Current year */
 
-    if(window.scrollY > 50){
-
-        header.style.background = "rgba(0,0,0,.92)";
-        header.style.boxShadow = "0 8px 25px rgba(0,0,0,.35)";
-
-    }else{
-
-        header.style.background = "rgba(0,0,0,.75)";
-        header.style.boxShadow = "none";
-
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
     }
 
-});
+    /* Mobile navigation */
 
+    if (menuButton && navigation) {
+        menuButton.addEventListener("click", () => {
+            const isOpen = navigation.classList.toggle("open");
 
-/* -----------------------------
-   Fade In Animation
-------------------------------*/
+            menuButton.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
 
-const observer = new IntersectionObserver((entries)=>{
+            menuButton.textContent = isOpen ? "✕" : "☰";
+        });
+    }
 
-    entries.forEach(entry=>{
+    navigationLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            if (navigation) {
+                navigation.classList.remove("open");
+            }
 
-        if(entry.isIntersecting){
+            if (menuButton) {
+                menuButton.setAttribute("aria-expanded", "false");
+                menuButton.textContent = "☰";
+            }
+        });
+    });
 
-            entry.target.classList.add("show");
+    /* Header scroll appearance */
 
+    function updateHeader() {
+        if (!header) {
+            return;
         }
 
+        if (window.scrollY > 40) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+    }
+
+    updateHeader();
+
+    window.addEventListener("scroll", updateHeader, {
+        passive: true
     });
 
-},{threshold:.15});
+    /* Smooth scrolling */
 
+    document
+        .querySelectorAll('a[href^="#"]')
+        .forEach((anchor) => {
+            anchor.addEventListener("click", (event) => {
+                const targetId = anchor.getAttribute("href");
 
-document.querySelectorAll("section").forEach(section=>{
+                if (!targetId || targetId === "#") {
+                    return;
+                }
 
-    section.classList.add("hidden");
+                const target = document.querySelector(targetId);
 
-    observer.observe(section);
+                if (!target) {
+                    return;
+                }
 
-});
+                event.preventDefault();
 
+                const headerHeight = header
+                    ? header.offsetHeight
+                    : 0;
 
-/* -----------------------------
-   Gallery Lightbox
-------------------------------*/
+                const targetPosition =
+                    target.getBoundingClientRect().top +
+                    window.scrollY -
+                    headerHeight;
 
-const images=document.querySelectorAll(".gallery img");
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: "smooth"
+                });
+            });
+        });
 
-images.forEach(image=>{
+    /* Reveal animations */
 
-    image.addEventListener("click",()=>{
+    const revealElements =
+        document.querySelectorAll(".reveal");
 
-        const overlay=document.createElement("div");
+    if ("IntersectionObserver" in window) {
+        const revealObserver =
+            new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.12,
+                    rootMargin: "0px 0px -40px 0px"
+                }
+            );
 
-        overlay.className="lightbox";
+        revealElements.forEach((element) => {
+            revealObserver.observe(element);
+        });
+    } else {
+        revealElements.forEach((element) => {
+            element.classList.add("show");
+        });
+    }
 
-        overlay.innerHTML=
-        `
-        <img src="${image.src}">
-        `;
+    /* Gallery lightbox */
 
-        overlay.onclick=()=>overlay.remove();
+    const galleryImages =
+        document.querySelectorAll(".gallery-item img");
 
-        document.body.appendChild(overlay);
+    galleryImages.forEach((image) => {
+        const galleryButton = image.closest(".gallery-item");
 
+        if (!galleryButton) {
+            return;
+        }
+
+        galleryButton.addEventListener("click", () => {
+            if (!lightbox || !lightboxImage) {
+                return;
+            }
+
+            lightboxImage.src = image.src;
+            lightboxImage.alt =
+                image.alt || "Expanded event image";
+
+            lightbox.classList.add("open");
+            document.body.classList.add("no-scroll");
+        });
     });
 
+    function closeLightbox() {
+        if (!lightbox) {
+            return;
+        }
+
+        lightbox.classList.remove("open");
+        document.body.classList.remove("no-scroll");
+
+        if (lightboxImage) {
+            lightboxImage.src = "";
+        }
+    }
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener(
+            "click",
+            closeLightbox
+        );
+    }
+
+    if (lightbox) {
+        lightbox.addEventListener("click", (event) => {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.key === "Escape" &&
+            lightbox &&
+            lightbox.classList.contains("open")
+        ) {
+            closeLightbox();
+        }
+    });
+
+    /* Quote form */
+
+    if (quoteForm) {
+        quoteForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(quoteForm);
+
+            const name =
+                String(formData.get("name") || "").trim();
+
+            const phone =
+                String(formData.get("phone") || "").trim();
+
+            const eventDate =
+                String(formData.get("date") || "").trim();
+
+            const eventType =
+                String(
+                    formData.get("eventType") || ""
+                ).trim();
+
+            const venue =
+                String(formData.get("venue") || "").trim();
+
+            const details =
+                String(formData.get("details") || "").trim();
+
+            if (!name || !phone || !eventDate || !eventType) {
+                showFormMessage(
+                    "Please complete your name, phone number, event date and event type.",
+                    "error"
+                );
+
+                return;
+            }
+
+            const message = [
+                "Dance Floor Rental Request",
+                "",
+                `Name: ${name}`,
+                `Phone: ${phone}`,
+                `Event date: ${eventDate}`,
+                `Event type: ${eventType}`,
+                `Venue or city: ${venue || "Not provided"}`,
+                "",
+                "Event details:",
+                details || "No additional details provided."
+            ].join("\n");
+
+            const smsBody = encodeURIComponent(message);
+
+            showFormMessage(
+                "Your request is ready. Your messaging app will open so you can send it.",
+                "success"
+            );
+
+            setTimeout(() => {
+                window.location.href =
+                    `sms:17652510535?&body=${smsBody}`;
+            }, 500);
+        });
+    }
+
+    function showFormMessage(message, type) {
+        if (!quoteForm) {
+            return;
+        }
+
+        let messageElement =
+            quoteForm.querySelector(".form-message");
+
+        if (!messageElement) {
+            messageElement =
+                document.createElement("p");
+
+            messageElement.className = "form-message";
+
+            quoteForm.appendChild(messageElement);
+        }
+
+        messageElement.textContent = message;
+        messageElement.className =
+            `form-message ${type}`;
+    }
+
+    /* Close mobile menu when clicking outside */
+
+    document.addEventListener("click", (event) => {
+        if (
+            !navigation ||
+            !menuButton ||
+            !navigation.classList.contains("open")
+        ) {
+            return;
+        }
+
+        const clickedInsideNavigation =
+            navigation.contains(event.target);
+
+        const clickedMenuButton =
+            menuButton.contains(event.target);
+
+        if (
+            !clickedInsideNavigation &&
+            !clickedMenuButton
+        ) {
+            navigation.classList.remove("open");
+            menuButton.textContent = "☰";
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+    });
 });
-
-
-/* -----------------------------
-   Hero Button Animation
-------------------------------*/
-
-const buttons=document.querySelectorAll(".button");
-
-buttons.forEach(button=>{
-
-button.addEventListener("mouseenter",()=>{
-
-button.style.transform="translateY(-4px) scale(1.03)";
-
-});
-
-button.addEventListener("mouseleave",()=>{
-
-button.style.transform="translateY(0) scale(1)";
-
-});
-
-});
-
-
-/* -----------------------------
-   Auto Year
-------------------------------*/
-
-const year=document.getElementById("year");
-
-if(year){
-
-year.textContent=new Date().getFullYear();
-
-}
