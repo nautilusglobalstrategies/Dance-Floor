@@ -1,28 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const header = document.getElementById("siteHeader");
-  const menuToggle = document.getElementById("menuToggle");
-  const navLinks = document.getElementById("navLinks");
-  const quoteForm = document.getElementById("quoteForm");
-  const formMessage = document.getElementById("formMessage");
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImage = lightbox.querySelector("img");
-  const closeLightboxButton =
-    lightbox.querySelector(".lightbox-close");
-  const yearElement = document.getElementById("year");
+  const siteHeader =
+    document.getElementById("siteHeader");
 
-  if (yearElement) {
-    yearElement.textContent =
+  const menuButton =
+    document.getElementById("menuButton");
+
+  const navigation =
+    document.getElementById("navigation");
+
+  const quoteForm =
+    document.getElementById("quoteForm");
+
+  const formMessage =
+    document.getElementById("formMessage");
+
+  const year =
+    document.getElementById("year");
+
+  const lightbox =
+    document.getElementById("lightbox");
+
+  const lightboxImage =
+    document.getElementById("lightboxImage");
+
+  const lightboxClose =
+    document.getElementById("lightboxClose");
+
+  if (year) {
+    year.textContent =
       new Date().getFullYear();
   }
 
   function updateHeader() {
-    if (!header) {
+    if (!siteHeader) {
       return;
     }
 
-    header.classList.toggle(
+    siteHeader.classList.toggle(
       "scrolled",
-      window.scrollY > 24
+      window.scrollY > 35
     );
   }
 
@@ -36,31 +52,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener(
+  if (menuButton && navigation) {
+    menuButton.addEventListener(
       "click",
       () => {
-        const isOpen =
-          navLinks.classList.toggle("open");
+        const menuIsOpen =
+          navigation.classList.toggle("open");
 
-        menuToggle.setAttribute(
+        menuButton.setAttribute(
           "aria-expanded",
-          String(isOpen)
+          String(menuIsOpen)
         );
       }
     );
   }
 
-  if (navLinks && menuToggle) {
-    navLinks
+  if (navigation && menuButton) {
+    navigation
       .querySelectorAll("a")
       .forEach((link) => {
         link.addEventListener(
           "click",
           () => {
-            navLinks.classList.remove("open");
+            navigation.classList.remove("open");
 
-            menuToggle.setAttribute(
+            menuButton.setAttribute(
               "aria-expanded",
               "false"
             );
@@ -73,26 +89,23 @@ document.addEventListener("DOMContentLoaded", () => {
     "click",
     (event) => {
       if (
-        !navLinks ||
-        !menuToggle ||
-        !navLinks.classList.contains("open")
+        !navigation ||
+        !menuButton ||
+        !navigation.classList.contains("open")
       ) {
         return;
       }
 
-      const clickedInsideNavigation =
-        navLinks.contains(event.target);
+      const clickedNavigation =
+        navigation.contains(event.target);
 
-      const clickedMenuButton =
-        menuToggle.contains(event.target);
+      const clickedButton =
+        menuButton.contains(event.target);
 
-      if (
-        !clickedInsideNavigation &&
-        !clickedMenuButton
-      ) {
-        navLinks.classList.remove("open");
+      if (!clickedNavigation && !clickedButton) {
+        navigation.classList.remove("open");
 
-        menuToggle.setAttribute(
+        menuButton.setAttribute(
           "aria-expanded",
           "false"
         );
@@ -106,12 +119,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if ("IntersectionObserver" in window) {
     const revealObserver =
       new IntersectionObserver(
-        (entries) => {
+        (entries, observer) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add("show");
+              entry.target.classList.add(
+                "visible"
+              );
 
-              revealObserver.unobserve(
+              observer.unobserve(
                 entry.target
               );
             }
@@ -120,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           threshold: 0.12,
           rootMargin:
-            "0px 0px -35px 0px"
+            "0px 0px -45px 0px"
         }
       );
 
@@ -129,41 +144,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   } else {
     revealElements.forEach((element) => {
-      element.classList.add("show");
+      element.classList.add("visible");
     });
   }
 
-  document
-    .querySelectorAll(".gallery-item img")
-    .forEach((image) => {
-      const galleryItem =
-        image.closest(".gallery-item");
+  const galleryImages =
+    document.querySelectorAll(
+      ".gallery-card img"
+    );
 
-      if (!galleryItem) {
-        return;
-      }
+  galleryImages.forEach((image) => {
+    const galleryButton =
+      image.closest(".gallery-card");
 
-      galleryItem.addEventListener(
-        "click",
-        () => {
-          if (
-            !lightbox ||
-            !lightboxImage
-          ) {
-            return;
-          }
+    if (!galleryButton) {
+      return;
+    }
 
-          lightboxImage.src = image.src;
-          lightboxImage.alt = image.alt;
-
-          lightbox.classList.add("open");
-
-          document.body.classList.add(
-            "no-scroll"
-          );
+    galleryButton.addEventListener(
+      "click",
+      () => {
+        if (!lightbox || !lightboxImage) {
+          return;
         }
-      );
-    });
+
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+
+        lightbox.classList.add("open");
+
+        document.body.classList.add(
+          "no-scroll"
+        );
+      }
+    );
+  });
 
   function closeLightbox() {
     if (!lightbox) {
@@ -182,8 +197,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (closeLightboxButton) {
-    closeLightboxButton.addEventListener(
+  if (lightboxClose) {
+    lightboxClose.addEventListener(
       "click",
       closeLightbox
     );
@@ -219,37 +234,37 @@ document.addEventListener("DOMContentLoaded", () => {
       (event) => {
         event.preventDefault();
 
-        const data =
+        const formData =
           new FormData(quoteForm);
 
         const name =
           String(
-            data.get("name") || ""
+            formData.get("name") || ""
           ).trim();
 
         const phone =
           String(
-            data.get("phone") || ""
+            formData.get("phone") || ""
           ).trim();
 
         const eventDate =
           String(
-            data.get("date") || ""
+            formData.get("date") || ""
           ).trim();
 
         const eventType =
           String(
-            data.get("eventType") || ""
+            formData.get("eventType") || ""
           ).trim();
 
         const venue =
           String(
-            data.get("venue") || ""
+            formData.get("venue") || ""
           ).trim();
 
         const details =
           String(
-            data.get("details") || ""
+            formData.get("details") || ""
           ).trim();
 
         if (
@@ -260,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
           if (formMessage) {
             formMessage.textContent =
-              "Please complete the required fields.";
+              "Please complete your name, phone number, date and event type.";
 
             formMessage.className =
               "form-message error";
@@ -269,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        const message = [
+        const textMessage = [
           "Dance Floor Rental Request",
           "",
           `Name: ${name}`,
@@ -282,7 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "",
           "Event details:",
           details ||
-            "No additional details provided."
+            "No additional information provided."
         ].join("\n");
 
         if (formMessage) {
@@ -293,11 +308,12 @@ document.addEventListener("DOMContentLoaded", () => {
             "form-message success";
         }
 
+        const encodedMessage =
+          encodeURIComponent(textMessage);
+
         setTimeout(() => {
           window.location.href =
-            `sms:17652510535?&body=${
-              encodeURIComponent(message)
-            }`;
+            `sms:17652510535?&body=${encodedMessage}`;
         }, 350);
       }
     );
