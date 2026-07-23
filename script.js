@@ -19,9 +19,7 @@ function currency(value) {
 }
 
 function getTotal() {
-  const service = serviceType.value;
-  const size = bookingSize.value;
-  return prices[service][size];
+  return prices[serviceType.value][bookingSize.value];
 }
 
 function updatePricing() {
@@ -37,9 +35,6 @@ function updatePricing() {
   payFullBtn.dataset.amount = total;
 }
 
-serviceType.addEventListener('change', updatePricing);
-bookingSize.addEventListener('change', updatePricing);
-
 payDepositBtn.addEventListener('click', () => {
   formMessage.textContent = `Deposit checkout ready for ${currency(Number(payDepositBtn.dataset.amount || 0))}.`;
 });
@@ -51,6 +46,26 @@ payFullBtn.addEventListener('click', () => {
 bookingForm.addEventListener('submit', (e) => {
   e.preventDefault();
   formMessage.textContent = 'Booking request captured. Connect this form to your payment/booking system next.';
+});
+
+serviceType.addEventListener('change', updatePricing);
+bookingSize.addEventListener('change', updatePricing);
+
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('fx-reveal-visible');
+      obs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fx-reveal').forEach(el => observer.observe(el));
+
+const hero = document.querySelector('.hero');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY * 0.12;
+  hero.style.backgroundPosition = `center ${y}px`;
 });
 
 updatePricing();
