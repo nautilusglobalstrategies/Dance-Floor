@@ -32,9 +32,10 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero full-bleed">
+      <div class="hero-overlay"></div>
       <div class="wrap hero-grid">
-        <div>
+        <div class="hero-copy">
           <span class="eyebrow">Premium event service for Indianapolis</span>
           <h1>Light up the floor. We handle the rest.</h1>
           <p class="lead">Dance floor rentals and post-party clean up for weddings, galas, and private events. Book your date online, secure it with a deposit, and choose full or partial payment at checkout.</p>
@@ -49,116 +50,191 @@
           </div>
         </div>
 
-        <div class="hero-card">
-          <div class="visual">
+        <div class="hero-panel">
+          <div class="panel-glass">
             <div class="badge">Featured Event Experience</div>
-            <div class="overlay">
-              <div class="mini">
-                <div>
-                  <b>Dance floor rental</b>
-                  <small>Weddings, parties, corporate events</small>
-                </div>
-                <span class="price">From $___</span>
+            <div class="mini">
+              <div>
+                <b>Dance floor rental</b>
+                <small>Weddings, parties, corporate events</small>
               </div>
-              <div class="mini">
-                <div>
-                  <b>After-party clean up</b>
-                  <small>Trash, spills, reset, sweep</small>
-                </div>
-                <span class="tag">Same night</span>
-              </div>
+              <span class="price">From $___</span>
             </div>
+            <div class="mini">
+              <div>
+                <b>After-party clean up</b>
+                <small>Trash, spills, reset, sweep</small>
+              </div>
+              <span class="tag">Same night</span>
+            </div>
+            <a class="btn primary full-btn" href="#booking">Reserve a Date</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="services">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>Two services. Zero stress.</h2>
-            <p>Simple service cards with clear messaging so customers instantly know what they’re booking.</p>
-          </div>
+    <section class="strip strip-one full-bleed">
+      <div class="strip-bg"></div>
+      <div class="wrap strip-content">
+        <div>
+          <span class="section-kicker">What we do</span>
+          <h2>Two services. Zero stress.</h2>
         </div>
+        <p>Simple, premium event support with clear booking and fast checkout.</p>
+      </div>
+    </section>
 
-        <div class="grid-2">
-          <article class="card service-card">
-            <div class="icon">💃</div>
-            <h3>Dance Floor Rental</h3>
-            <p>Modular dance floors for weddings, galas, birthdays, and private events with delivery, setup, and breakdown included.</p>
-            <span class="pill">Setup • Delivery • Pickup</span>
+    <section id="services" class="content-section">
+      <div class="wrap">
+        <div class="feature-grid">
+          <article class="feature feature-left">
+            <div class="feature-bg feature-bg-floor"></div>
+            <div class="feature-overlay"></div>
+            <div class="feature-inner">
+              <span class="section-kicker">Dance Floor Rental</span>
+              <h3>Modular floors that look sharp in any venue.</h3>
+              <p>Perfect for weddings, galas, birthdays, and private events. Delivery, setup, and breakdown included.</p>
+              <ul class="feature-list">
+                <li>LED or classic finish</li>
+                <li>Custom sizing</li>
+                <li>Fast install and pickup</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="card service-card">
-            <div class="icon">🧼</div>
-            <h3>Post-Party Clean Up</h3>
-            <p>Trash removal, spill cleanup, floor sweeping, and venue reset so the space looks spotless after the event ends.</p>
-            <span class="pill">Trash • Sweep • Reset</span>
+          <article class="feature feature-right">
+            <div class="feature-bg feature-bg-clean"></div>
+            <div class="feature-overlay"></div>
+            <div class="feature-inner">
+              <span class="section-kicker">Post-Party Clean Up</span>
+              <h3>Leave the mess to us when the night ends.</h3>
+              <p>Trash removal, spill cleanup, floor sweeping, and venue reset so the space is ready to hand back.</p>
+              <ul class="feature-list">
+                <li>Trash and bag removal</li>
+                <li>Spill and surface cleanup</li>
+                <li>Quick reset and sweep</li>
+              </ul>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="process">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>Booking flow</h2>
-            <p>The site should feel like a reservation system, not just a brochure.</p>
-          </div>
+    <section class="strip strip-two full-bleed">
+      <div class="strip-bg"></div>
+      <div class="wrap strip-content strip-content-alt">
+        <div>
+          <span class="section-kicker">Booking flow</span>
+          <h2>Built like a premium reservation system.</h2>
         </div>
-
-        <div class="grid-3 steps">
-          <div class="card step"><h3>Choose service</h3><p>Pick dance floor rental, post-party clean up, or both.</p></div>
-          <div class="card step"><h3>Select date</h3><p>Enter the event date and venue so availability can be checked.</p></div>
-          <div class="card step"><h3>Pay deposit</h3><p>Offer deposit, partial payment, or full payment at checkout.</p></div>
-        </div>
+        <p>Pick a service, choose a date, select a payment option, and confirm in minutes.</p>
       </div>
     </section>
 
-    <section id="booking">
-      <div class="wrap form-wrap">
-        <div class="card form">
-          <div class="section-head form-head">
+    <section id="process" class="content-section">
+      <div class="wrap">
+        <div class="timeline">
+          <div class="timeline-step">
+            <span>01</span>
             <div>
-              <h2>Book your event</h2>
-              <p>Connect this form to Stripe, Square, or your booking platform later.</p>
+              <h3>Choose service</h3>
+              <p>Pick dance floor rental, post-party clean up, or both.</p>
             </div>
           </div>
+          <div class="timeline-step">
+            <span>02</span>
+            <div>
+              <h3>Select date</h3>
+              <p>Enter the event date and location so availability can be checked.</p>
+            </div>
+          </div>
+          <div class="timeline-step">
+            <span>03</span>
+            <div>
+              <h3>Pay deposit</h3>
+              <p>Offer deposit, partial payment, or full payment at checkout.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <form id="bookingForm">
-            <div class="grid-2">
+    <section id="booking" class="booking-section full-bleed">
+      <div class="booking-bg"></div>
+      <div class="wrap booking-grid">
+        <div class="booking-copy">
+          <span class="section-kicker">Book your event</span>
+          <h2>Reserve your date and pay online.</h2>
+          <p>Connect this form to Stripe, Square, or your booking platform later. For now it’s designed to feel like a modern booking dashboard.</p>
+          <div class="booking-points">
+            <div><strong>Deposit</strong><span>Hold the date fast.</span></div>
+            <div><strong>Partial pay</strong><span>Split the balance later.</span></div>
+            <div><strong>Full pay</strong><span>One-click checkout.</span></div>
+          </div>
+        </div>
+
+        <div class="booking-panel">
+          <div class="panel-glass booking-card">
+            <div class="price-block">
+              <span class="small-label">Estimated total</span>
+              <div class="amount" id="totalAmount">$0</div>
+              <div class="balance-row">
+                <span>Deposit today</span>
+                <strong id="depositAmount">$0</strong>
+              </div>
+              <div class="balance-row">
+                <span>Balance due</span>
+                <strong id="balanceAmount">$0</strong>
+              </div>
+            </div>
+
+            <form id="bookingForm">
               <div class="field">
                 <label for="name">Full name</label>
                 <input id="name" name="name" type="text" placeholder="Your name" required />
               </div>
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" placeholder="(317) 555-0123" required />
-              </div>
-            </div>
 
-            <div class="grid-2">
-              <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="you@email.com" required />
+              <div class="field-grid">
+                <div class="field">
+                  <label for="phone">Phone</label>
+                  <input id="phone" name="phone" type="tel" placeholder="(317) 555-0123" required />
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="you@email.com" required />
+                </div>
               </div>
-              <div class="field">
-                <label for="eventdate">Event date</label>
-                <input id="eventdate" name="eventdate" type="date" required />
-              </div>
-            </div>
 
-            <div class="field">
-              <label>What do you need?</label>
-              <div class="checkrow">
-                <label class="check"><input type="checkbox" name="service" value="dance-floor" /> Dance floor rental</label>
-                <label class="check"><input type="checkbox" name="service" value="cleanup" /> Post-party clean up</label>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="eventdate">Event date</label>
+                  <input id="eventdate" name="eventdate" type="date" required />
+                </div>
+                <div class="field">
+                  <label for="venue">Venue / address</label>
+                  <input id="venue" name="venue" type="text" placeholder="Event location" />
+                </div>
               </div>
-            </div>
 
-            <div class="grid-2">
+              <div class="field-grid">
+                <div class="field">
+                  <label for="serviceType">Service package</label>
+                  <select id="serviceType">
+                    <option value="dance">Dance floor rental</option>
+                    <option value="cleanup">Post-party clean up</option>
+                    <option value="both">Both services</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="bookingSize">Event size</label>
+                  <select id="bookingSize">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                  </select>
+                </div>
+              </div>
+
               <div class="field">
                 <label for="payment">Payment option</label>
                 <select id="payment" name="payment">
@@ -167,80 +243,41 @@
                   <option>Full payment</option>
                 </select>
               </div>
+
               <div class="field">
-                <label for="venue">Venue / address</label>
-                <input id="venue" name="venue" type="text" placeholder="Event location" />
+                <label for="details">Event details</label>
+                <textarea id="details" name="details" placeholder="Tell us about your event, size, timing, and special requests."></textarea>
               </div>
-            </div>
 
-            <div class="field">
-              <label for="details">Event details</label>
-              <textarea id="details" name="details" placeholder="Tell us about your event, size, timing, and any special requests."></textarea>
-            </div>
+              <div class="button-row">
+                <button class="btn primary" type="button" id="payDepositBtn">Pay Deposit</button>
+                <button class="btn secondary" type="button" id="payFullBtn">Pay Full Amount</button>
+              </div>
 
-            <button class="btn primary" type="submit">Continue to booking</button>
-            <p id="formMessage" class="form-message" aria-live="polite"></p>
-          </form>
+              <button class="btn ghost full-btn" type="submit">Continue to booking</button>
+              <p id="formMessage" class="form-message" aria-live="polite"></p>
+            </form>
+          </div>
         </div>
-
-        <aside class="pricebox">
-          <h3>Checkout panel</h3>
-          <p class="muted">This area should show live pricing, deposit amount, and what remains due later.</p>
-          <div class="amount" id="totalAmount">$0</div>
-          <p class="muted">
-            Deposit today: <b id="depositAmount">$0</b><br />
-            Balance due: <b id="balanceAmount">$0</b>
-          </p>
-
-          <div class="field">
-            <label for="serviceType">Service package</label>
-            <select id="serviceType">
-              <option value="dance">Dance floor rental</option>
-              <option value="cleanup">Post-party clean up</option>
-              <option value="both">Both services</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="bookingSize">Event size</label>
-            <select id="bookingSize">
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-            </select>
-          </div>
-
-          <div style="display:grid;gap:10px;margin-top:16px">
-            <button class="btn primary" type="button" id="payDepositBtn">Pay Deposit</button>
-            <button class="btn secondary" type="button" id="payFullBtn">Pay Full Amount</button>
-          </div>
-
-          <p class="muted" style="margin-top:14px">Connect Stripe Checkout, Square, or your booking provider here.</p>
-        </aside>
       </div>
     </section>
 
-    <section id="faq">
-      <div class="wrap faq">
-        <div class="section-head">
-          <div>
-            <h2>FAQ</h2>
-            <p>Questions people will ask before they book.</p>
-          </div>
+    <section id="faq" class="content-section">
+      <div class="wrap">
+        <div class="faq-grid">
+          <details>
+            <summary>Can customers pay a deposit now and the rest later?</summary>
+            <p>Yes, the site is built to support deposit, partial, and full payment options.</p>
+          </details>
+          <details>
+            <summary>Can this be hosted on GitHub?</summary>
+            <p>Yes, the front end can live on GitHub Pages while payments connect through a checkout service.</p>
+          </details>
+          <details>
+            <summary>Can it still feel like a party brand?</summary>
+            <p>Yes, by using large background images, glowing overlays, and minimal section framing.</p>
+          </details>
         </div>
-
-        <details>
-          <summary>Can customers pay a deposit now and the rest later?</summary>
-          <p>Yes, the site is designed to support deposit, partial, and full payment options.</p>
-        </details>
-        <details>
-          <summary>Can this be hosted on GitHub?</summary>
-          <p>Yes, the front end can live on GitHub Pages while payments connect through a checkout service.</p>
-        </details>
-        <details>
-          <summary>Can it still feel like a party brand?</summary>
-          <p>Yes, by using bright image sections, elegant lighting effects, and strong calls to action.</p>
-        </details>
       </div>
     </section>
   </main>
