@@ -1,164 +1,518 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Afterglow Events</title>
-<meta name="description" content="Dance floor rentals and event clean up for weddings and galas.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rhythm & Reset | Dance Floor Rentals + Post-Party Clean Up</title>
+  <meta name="description" content="Dance floor rentals and post-party clean up services for weddings, parties, and events. Book online, pay deposits, and reserve your date fast." />
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --bg2:#111827;
+      --card:#121a2a;
+      --text:#f8fafc;
+      --muted:#cbd5e1;
+      --line:rgba(255,255,255,.1);
+      --accent:#f5c451;
+      --accent2:#38bdf8;
+      --success:#22c55e;
+      --danger:#fb7185;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:22px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(circle at top, #172033 0%, var(--bg) 45%, #070b12 100%);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{width:min(var(--max),calc(100% - 32px));margin:auto}
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(7,11,18,.72);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.4px;
+    }
+    .logo{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),#ff8f70);
+      display:grid;
+      place-items:center;
+      color:#111827;
+      font-weight:900;
+      box-shadow:0 12px 30px rgba(245,196,81,.28);
+    }
+    .navlinks{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+    .navlinks a:hover,.navlinks a:focus{color:#fff}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      border-radius:999px;
+      padding:14px 20px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s transform,.2s opacity,.2s background;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{
+      background:linear-gradient(135deg,var(--accent),#ff9b6b);
+      color:#111827;
+      box-shadow:0 16px 35px rgba(245,196,81,.18);
+    }
+    .btn.secondary{
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      border:1px solid var(--line);
+    }
+    .hero{padding:56px 0 28px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      background:rgba(56,189,248,.12);
+      border:1px solid rgba(56,189,248,.25);
+      color:#d7f3ff;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:.9rem;
+    }
+    h1{
+      font-size:clamp(2.5rem,5vw,4.9rem);
+      line-height:.97;
+      margin:18px 0 16px;
+      letter-spacing:-1.8px;
+    }
+    .lead{
+      font-size:1.08rem;
+      color:var(--muted);
+      max-width:58ch;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:26px 0 18px;
+    }
+    .stats{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:18px;
+    }
+    .stat{
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 16px;
+      min-width:150px;
+    }
+    .stat strong{display:block;font-size:1.15rem}
+    .stat span{color:var(--muted);font-size:.92rem}
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .visual{
+      min-height:430px;
+      border-radius:22px;
+      background:
+        linear-gradient(180deg, rgba(10,14,24,.15), rgba(10,14,24,.8)),
+        url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1400&q=80') center/cover;
+      position:relative;
+      overflow:hidden;
+    }
+    .badge{
+      position:absolute;
+      left:18px;
+      top:18px;
+      background:rgba(11,15,23,.72);
+      backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,.15);
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:.92rem;
+    }
+    .overlay{
+      position:absolute;
+      inset:auto 18px 18px 18px;
+      display:grid;
+      gap:12px;
+    }
+    .mini{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(17,24,39,.86);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      padding:14px 16px;
+    }
+    .mini b{display:block}
+    .mini small{color:var(--muted)}
+    section{padding:22px 0 56px}
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:end;
+      margin-bottom:18px;
+    }
+    .section-head h2{
+      font-size:clamp(1.6rem,2.6vw,2.5rem);
+      margin:0;
+      letter-spacing:-.8px;
+    }
+    .section-head p{margin:0;color:var(--muted);max-width:60ch}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .service-card h3{margin:12px 0 10px;font-size:1.3rem}
+    .service-card p,.faq p,.form p{color:var(--muted)}
+    .icon{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:rgba(245,196,81,.12);
+      border:1px solid rgba(245,196,81,.18);
+      font-size:1.35rem;
+    }
+    .pill{
+      display:inline-block;
+      margin-top:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(56,189,248,.12);
+      color:#d7f3ff;
+      border:1px solid rgba(56,189,248,.2);
+      font-size:.88rem;
+    }
+    .steps{counter-reset:step}
+    .step{position:relative;padding-left:54px}
+    .step:before{
+      counter-increment:step;
+      content:counter(step);
+      position:absolute;
+      left:0;
+      top:0;
+      width:38px;
+      height:38px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--accent2),#8b5cf6);
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      color:#fff;
+    }
+    .form-wrap{
+      display:grid;
+      grid-template-columns:1fr .9fr;
+      gap:18px;
+      align-items:start;
+    }
+    form{display:grid;gap:12px}
+    .field{display:grid;gap:7px}
+    label{font-size:.92rem;color:#e2e8f0}
+    input,select,textarea{
+      width:100%;
+      padding:14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:#0b1220;
+      color:#fff;
+      outline:none;
+    }
+    input:focus,select:focus,textarea:focus{
+      border-color:rgba(245,196,81,.55);
+      box-shadow:0 0 0 4px rgba(245,196,81,.12);
+    }
+    textarea{min-height:120px;resize:vertical}
+    .checkrow{display:flex;flex-wrap:wrap;gap:10px}
+    .check{
+      flex:1 1 160px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px 14px;
+      cursor:pointer;
+    }
+    .check input{width:auto;margin-right:10px}
+    .pricebox{
+      position:sticky;
+      top:92px;
+      background:linear-gradient(180deg, rgba(245,196,81,.12), rgba(255,255,255,.05));
+      border:1px solid rgba(245,196,81,.22);
+      border-radius:24px;
+      padding:22px;
+    }
+    .pricebox h3{margin:0 0 8px}
+    .amount{
+      font-size:2rem;
+      font-weight:900;
+      margin:10px 0;
+    }
+    .muted{color:var(--muted)}
+    .faq details{
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px 18px;
+    }
+    .faq details+details{margin-top:12px}
+    .faq summary{cursor:pointer;font-weight:700}
+    footer{
+      padding:28px 0 40px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+    }
+    .footer-grid{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+    }
+    .desktop-only{display:block}
+    .mobile-only{display:none}
+    @media (max-width: 940px){
+      .hero-grid,.grid-2,.grid-3,.form-wrap{grid-template-columns:1fr}
+      .desktop-only{display:none}
+      .mobile-only{display:inline-flex}
+      .navlinks{display:none}
+      .hero{padding-top:30px}
+      .visual{min-height:320px}
+      .pricebox{position:static}
+    }
+  </style>
 </head>
 <body>
-
-<header class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#top" class="logo">✦ Afterglow</a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#services">Services</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#book">Book</a>
-    </nav>
-    <a href="#book" class="btn btn-glow nav-cta">Book Now</a>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-</header>
-
-<section class="hero" id="top">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="tile-floor" id="tileFloor"></div>
-  <div class="hero-content">
-    <p class="tag">✦ WEDDINGS · GALAS · PRIVATE EVENTS</p>
-    <h1>Light up the floor.<br><span class="grad-text">We handle the rest.</span></h1>
-    <p class="hero-sub">Premium dance floor rentals + same-night clean up. Booked in minutes.</p>
-    <div class="hero-actions">
-      <a href="#book" class="btn btn-glow">Check Availability →</a>
-      <a href="#services" class="btn btn-outline">What's Included</a>
-    </div>
-  </div>
-</section>
-
-<section class="services" id="services">
-  <p class="tag center">✦ WHAT WE DO</p>
-  <h2 class="center">Two services. Zero stress.</h2>
-
-  <div class="grid-2">
-    <article class="glass-card">
-      <div class="icon">💃</div>
-      <h3>Dance Floor Rental</h3>
-      <p>Modular LED-lit floors, delivered and set up before your first guest walks in.</p>
-      <ul>
-        <li>12×12 up to 24×24 + custom</li>
-        <li>LED or classic finish</li>
-        <li>Full setup & breakdown</li>
-      </ul>
-      <span class="price">From $450</span>
-    </article>
-
-    <article class="glass-card">
-      <div class="icon">✨</div>
-      <h3>Post-Event Clean Up</h3>
-      <p>When the music stops, we're still there — breaking down and resetting the venue.</p>
-      <ul>
-        <li>Full teardown</li>
-        <li>Trash & recycling removal</li>
-        <li>Venue sign-off</li>
-      </ul>
-      <span class="price">From $250</span>
-    </article>
-  </div>
-</section>
-
-<section class="how">
-  <ol class="steps">
-    <li><span>01</span><h4>Pick a date</h4></li>
-    <li><span>02</span><h4>We set up</h4></li>
-    <li><span>03</span><h4>We clean up</h4></li>
-  </ol>
-</section>
-
-<section class="gallery" id="gallery">
-  <p class="tag center">✦ THE FLOOR</p>
-  <h2 class="center">Gallery</h2>
-  <div class="bento">
-    <figure class="bento-tile big g1"><figcaption>Black & gold reception</figcaption></figure>
-    <figure class="bento-tile g2"><figcaption>Gala uplighting</figcaption></figure>
-    <figure class="bento-tile g3"><figcaption>LED first dance</figcaption></figure>
-    <figure class="bento-tile g4"><figcaption>Late-night floor</figcaption></figure>
-    <figure class="bento-tile big g5"><figcaption>Clean up & reset</figcaption></figure>
-  </div>
-</section>
-
-<section class="booking" id="book">
-  <p class="tag center">✦ RESERVE</p>
-  <h2 class="center">Check dates & book</h2>
-
-  <div class="booking-grid">
-    <div class="glass-card calendar-card">
-      <div class="cal-head">
-        <button type="button" id="prevMonth" class="cal-nav">‹</button>
-        <h3 id="calLabel">Month Year</h3>
-        <button type="button" id="nextMonth" class="cal-nav">›</button>
+  <header class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">R</div>
+        <div>
+          <div>Rhythm & Reset</div>
+          <small style="color:var(--muted)">Dance floors + clean up</small>
+        </div>
       </div>
-      <div class="cal-weekdays"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
-      <div class="cal-grid" id="calGrid"></div>
-      <div class="cal-key">
-        <span><i class="dot dot-open"></i>Open</span>
-        <span><i class="dot dot-sel"></i>Selected</span>
-        <span><i class="dot dot-full"></i>Booked</span>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#booking">Book</a>
+        <a href="#process">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="btn secondary desktop-only" href="tel:+13175550123">Call (317) 555-0123</a>
+        <a class="btn primary" href="#booking">Book Now</a>
       </div>
     </div>
+  </header>
 
-    <form class="glass-card booking-form" id="bookingForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <input type="text" name="name" placeholder="Full name" required>
-      <div class="two-col">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="tel" name="phone" placeholder="Phone" required>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Premium event service for Indianapolis</span>
+          <h1>Dance floor rentals and post-party clean up that keep the night moving.</h1>
+          <p class="lead">Book your event online, secure your date with a deposit, and choose full or partial payment at checkout. Designed to feel upscale for guests and simple for you.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#booking">Reserve Your Date</a>
+            <a class="btn secondary" href="#services">See Services</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>Fast booking</strong><span>Request in minutes</span></div>
+            <div class="stat"><strong>Deposit ready</strong><span>Partial or full pay</span></div>
+            <div class="stat"><strong>Event feel</strong><span>Clean, premium, bold</span></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="visual">
+            <div class="badge">Featured Event Experience</div>
+            <div class="overlay">
+              <div class="mini"><div><b>Dance floor rental</b><small>Weddings, parties, corporate events</small></div><span style="color:var(--accent)">From $___</span></div>
+              <div class="mini"><div><b>After-party clean up</b><small>Trash, spills, reset, sweep</small></div><span style="color:var(--success)">Same night</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="two-col">
-        <select name="event_type">
-          <option>Wedding</option>
-          <option>Gala</option>
-          <option>Corporate</option>
-          <option>Private party</option>
-        </select>
-        <input type="number" name="guest_count" placeholder="Guest count">
+    </section>
+
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Services built for events</h2>
+            <p>Two core offers, both designed to convert visitors into booked events with clear choices and easy checkout.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card service-card">
+            <div class="icon">💃</div>
+            <h3>Dance Floor Rental</h3>
+            <p>Make the center of the party stand out with a polished dance floor setup for weddings, birthdays, and private events.</p>
+            <span class="pill">Setup, delivery, pickup</span>
+          </article>
+          <article class="card service-card">
+            <div class="icon">🧼</div>
+            <h3>Post-Party Clean Up</h3>
+            <p>Leave the after-party mess to us with trash removal, spill cleanup, floor reset, and venue-ready finishing touches.</p>
+            <span class="pill">Trash, spills, sweep, reset</span>
+          </article>
+        </div>
       </div>
-      <input type="text" id="selectedDate" name="event_date" readonly placeholder="Pick a date on the calendar →">
-      <select id="packageSelect" name="package">
-        <option data-price="450">Dance Floor — $450</option>
-        <option data-price="650">Floor + Clean Up — $650</option>
-        <option data-price="750">LED Floor + Clean Up — $750</option>
-        <option data-price="0">Custom quote</option>
-      </select>
+    </section>
 
-      <div class="cost-box">
-        <div><span>Total</span><strong id="pkgTotal">$450</strong></div>
-        <div><span>Deposit (30%)</span><strong id="depositAmt">$135</strong></div>
-        <div><span>Balance</span><strong id="balanceAmt">$315</strong></div>
+    <section id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>How booking should work</h2>
+            <p>The process should feel like a simple reservation flow, not a long form. Customers choose a service, pick a date, pay, and get confirmation right away.</p>
+          </div>
+        </div>
+        <div class="grid-3 steps">
+          <div class="card step"><h3>Choose service</h3><p>Select dance floor rental, clean up, or both for the same event.</p></div>
+          <div class="card step"><h3>Pick date & pay</h3><p>Collect a deposit, partial payment, or full payment during booking.</p></div>
+          <div class="card step"><h3>Get confirmation</h3><p>Show a thank-you screen and send booking details by email.</p></div>
+        </div>
       </div>
+    </section>
 
-      <textarea name="notes" rows="2" placeholder="Venue, timing, notes..."></textarea>
+    <section id="booking">
+      <div class="wrap form-wrap">
+        <div class="card form">
+          <div class="section-head" style="margin-bottom:14px">
+            <div>
+              <h2>Book your event</h2>
+              <p>Replace the form action with your booking platform or Stripe checkout link when you connect payments.</p>
+            </div>
+          </div>
+          <form action="#" method="post">
+            <div class="grid-2">
+              <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" placeholder="Your name" required></div>
+              <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="(317) 555-0123" required></div>
+            </div>
+            <div class="grid-2">
+              <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@email.com" required></div>
+              <div class="field"><label for="eventdate">Event date</label><input id="eventdate" name="eventdate" type="date" required></div>
+            </div>
+            <div class="field"><label>What do you need?</label>
+              <div class="checkrow">
+                <label class="check"><input type="checkbox" name="service" value="dance-floor"> Dance floor rental</label>
+                <label class="check"><input type="checkbox" name="service" value="cleanup"> Post-party clean up</label>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field"><label for="payment">Payment option</label>
+                <select id="payment" name="payment">
+                  <option>Deposit only</option>
+                  <option>Partial payment</option>
+                  <option>Full payment</option>
+                </select>
+              </div>
+              <div class="field"><label for="venue">Venue / address</label><input id="venue" name="venue" type="text" placeholder="Event location"></div>
+            </div>
+            <div class="field"><label for="details">Event details</label><textarea id="details" name="details" placeholder="Tell us about your event, size, timing, and any special requests."></textarea></div>
+            <button class="btn primary" type="submit">Continue to booking</button>
+          </form>
+        </div>
+        <aside class="pricebox">
+          <h3>Checkout panel</h3>
+          <p class="muted">This area should show live pricing, deposit amount, and what remains due later.</p>
+          <div class="amount">$___</div>
+          <p class="muted">Deposit today: <b style="color:#fff">$___</b><br>Balance due: <b style="color:#fff">$___</b></p>
+          <div style="display:grid;gap:10px;margin-top:16px">
+            <a class="btn primary" href="#">Pay Deposit</a>
+            <a class="btn secondary" href="#">Pay Full Amount</a>
+          </div>
+          <p class="muted" style="margin-top:14px">Connect Stripe Checkout, Square, or your booking provider here.</p>
+        </aside>
+      </div>
+    </section>
 
-      <button type="submit" class="btn btn-glow btn-block">Request Date</button>
-      <a href="https://buy.stripe.com/YOUR_PAYMENT_LINK" target="_blank" rel="noopener" class="btn btn-outline btn-block">Pay Deposit — <span id="depositLinkAmt">$135</span></a>
-      <p class="form-note" id="formStatus"></p>
-    </form>
-  </div>
-</section>
+    <section>
+      <div class="wrap grid-2">
+        <div class="card">
+          <div class="section-head" style="margin-bottom:10px"><div><h2 style="margin:0">Why it works</h2></div></div>
+          <p>Visitors immediately see what you offer, how to book, and how to pay. That keeps the site professional while still giving it a party-style energy.</p>
+        </div>
+        <div class="card">
+          <div class="section-head" style="margin-bottom:10px"><div><h2 style="margin:0">Brand feel</h2></div></div>
+          <p>Use bold photos, gold accents, clean spacing, and strong buttons so the site feels premium, lively, and easy to trust.</p>
+        </div>
+      </div>
+    </section>
 
-<footer class="footer">
-  <p class="logo">✦ Afterglow</p>
-  <div class="footer-links">
-    <a href="mailto:hello@afterglowevents.com">hello@afterglowevents.com</a>
-    <a href="tel:+15555555555">(555) 555-5555</a>
-    <a href="#">Instagram</a>
-  </div>
-  <p class="fine">© <span id="year"></span> Afterglow Events</p>
-</footer>
+    <section id="faq">
+      <div class="wrap faq">
+        <div class="section-head">
+          <div>
+            <h2>FAQ</h2>
+            <p>These are the questions people will ask before they book.</p>
+          </div>
+        </div>
+        <details><summary>Can customers pay a deposit now and the rest later?</summary><p>Yes, the site should support deposit, partial, and full payment options.</p></details>
+        <details><summary>Can this be hosted on GitHub?</summary><p>Yes, the website front end can live on GitHub Pages, while payments connect through a checkout service.</p></details>
+        <details><summary>Can it look like a party brand instead of a plain service site?</summary><p>Yes, by using strong photography, dark backgrounds, bright accents, and a simple, high-energy layout.</p></details>
+      </div>
+    </section>
+  </main>
 
-<script src="script.js"></script>
+  <footer>
+    <div class="wrap footer-grid">
+      <div><strong style="color:#fff">Rhythm & Reset</strong><div>Indianapolis, IN</div></div>
+      <div>Dance floor rentals • Post-party clean up • Booking & deposits</div>
+    </div>
+  </footer>
 </body>
 </html>
